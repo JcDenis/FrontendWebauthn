@@ -76,7 +76,7 @@ dotclear.ready(() => {
         rsp = JSON.parse(rsp);
         if ((rsp.message || 'ko') === 'ok') {
           // on success, reload page to get user session from rest service
-          window.location.reload();
+          window.location.href = url;
         } else {
           window.alert(rsp.message || dotclear.fwData.err + ' (a2)');
         }
