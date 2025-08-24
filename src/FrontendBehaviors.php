@@ -41,7 +41,7 @@ class FrontendBehaviors
                 ->class('webauthn_authenticate')
                 ->items([
                     (new Link([My::id() . '_submit', My::id() . 'submit_widget']))
-                        ->text(__('Connect with a passkey'))
+                        ->text(__('Sign in with a passkey'))
                         ->href($url),
                 ]);
         }
@@ -84,7 +84,7 @@ class FrontendBehaviors
             ->class('webauthn_register')
             ->items([
                 (new Link([My::id() . '_submit', My::id() . 'submit_page']))
-                    ->text(__('Register a new passkey'))
+                    ->text(__('Register a new key'))
                     ->href($url),
                 (new Hidden('FrontendSessionaction', My::id())),
                 (new Hidden('FrontendSessioncheck', App::nonce()->getNonce())),
@@ -106,7 +106,6 @@ class FrontendBehaviors
                 case 'deleteCredential':
                     if (!empty($_POST[My::id() . 'delete']) && is_array($_POST[My::id() . 'delete'])) {
                         $webauthn->store()->delCredential(base64_decode(key($_POST[My::id() . 'delete']), false));
-                        //App::frontend()->context()->frontend_session->success = __('Passkey successfully unregistred.');
                         return;
                     }
 
@@ -133,7 +132,7 @@ class FrontendBehaviors
                     if ($data !== '' &&  App::frontend()->context()->frontend_session->check($data)) {
                         $json = [
                             'message' => 'ok',
-                            'arguments' => [],
+                            'arguments' => ['user' => $data],
                         ];
                     } else {
                         $json = [

@@ -6,6 +6,7 @@ namespace Dotclear\Plugin\FrontendWebauthn;
 
 use Dotclear\App;
 use Dotclear\Core\Process;
+use Dotclear\Helper\L10n;
 
 /**
  * @brief       FrontendWebauthn module frontend process.
@@ -26,6 +27,8 @@ class Frontend extends Process
         if (!self::status()) {
             return false;
         }
+
+        L10n::set(implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'locales', App::lang()->getLang(), 'public']));
 
         App::behavior()->addBehaviors([
             'publicHeadContent' => FrontendBehaviors::publicHeadContent(...),

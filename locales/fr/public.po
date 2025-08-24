@@ -1,0 +1,54 @@
+# Language: Français
+# Module: FrontendWebauthn - 0.1
+# Date: 2025-08-24 08:37:05
+# Author: , contact@jcdenis.fr
+# Translated with translater 2025.03.03
+
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: FrontendWebauthn 0.1\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2025-08-24T08:37:05+00:00\n"
+"Last-Translator: Jean-Christian Denis\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/FrontendBehaviors.php:33
+msgid "Failed to authenticate with passkey"
+msgstr "Impossible de s'authentifier avec un clé"
+
+#: src/FrontendBehaviors.php:44
+msgid "Sign in with a passkey"
+msgstr "Se connecter avec une clé d'accès"
+
+#: src/FrontendBehaviors.php:70
+msgid "Unknown certificat issuer"
+msgstr "Émetteur de certificat inconnu"
+
+#: src/FrontendBehaviors.php:71
+msgid "%Y-%m-%d %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+#: src/FrontendBehaviors.php:73
+msgid "Delete"
+msgstr "Supprimer"
+
+#: src/FrontendBehaviors.php:80
+msgid "You have no registered key yet."
+msgstr "Vous n'avez pas encore de clé enregistrée."
+
+#: src/FrontendBehaviors.php:87
+msgid "Register a new key"
+msgstr "Enregistrer une nouvelle clé"
+
+#: src/FrontendBehaviors.php:94
+msgid "Authentication keys"
+msgstr "Clés d'authentification"
+
+#: src/FrontendBehaviors.php:140
+msgid "This key is not registered"
+msgstr "Cette clé n'est pas enregistrée"
+
