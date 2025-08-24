@@ -2,11 +2,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="FrontendWebauthn">
     <name>Frontend Webauthn</name>
-    <version>0.1</version>
-    <date>2025-08-24T07:00:28+00:00</date>
+    <version>0.2</version>
+    <date>2025-08-24T08:43:57+00:00</date>
     <author>Jean-Christian Paul Denis and contributors</author>
     <desc>Use passkey on frontend.</desc>
-    <file>https://github.com/JcDenis/FrontendWebauthn/releases/download/v0.1/plugin-FrontendWebauthn.zip</file>
+    <file>https://github.com/JcDenis/FrontendWebauthn/releases/download/v0.2/plugin-FrontendWebauthn.zip</file>
     <da:dcmin>2.36</da:dcmin>
     <da:details>https://github.com/JcDenis/FrontendWebauthn/src/branch/master/README.md</da:details>
     <da:support>https://github.com/JcDenis/FrontendWebauthn/issues</da:support>
