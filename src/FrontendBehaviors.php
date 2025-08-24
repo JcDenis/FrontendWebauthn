@@ -7,7 +7,7 @@ namespace Dotclear\Plugin\FrontendWebauthn;
 use ArrayObject;
 use Dotclear\App;
 use Dotclear\Helper\Date;
-use Dotclear\Helper\Html\Form\{ Div, Li, Link, Submit, Text, Timestamp, Ul };
+use Dotclear\Helper\Html\Form\{ Div, Hidden, Li, Link, Submit, Text, Timestamp, Ul };
 use Dotclear\Helper\Html\Html;
 use Dotclear\Plugin\FrontendSession\{ FrontendSessionProfil, FrontendUrl };
 use Dotclear\Plugin\widgets\WidgetsElement;
@@ -63,6 +63,7 @@ class FrontendBehaviors
                 continue;
             }
             $items[] = (new Li())
+                ->class('webauthn_unregister')
                 ->separator(', ')
                 ->items([
                     (new Text('', Html::escapeHTML($webauthn->provider()->getProvider($credential->UUID()))))
@@ -85,6 +86,9 @@ class FrontendBehaviors
                 (new Link([My::id() . '_submit', My::id() . 'submit_page']))
                     ->text(__('Register a new passkey'))
                     ->href($url),
+                (new Hidden('FrontendSessionaction', My::id())),
+                (new Hidden('FrontendSessioncheck', App::nonce()->getNonce())),
+                (new Hidden('step', 'deleteCredential')),
             ]);
 
         $profil->addAction(My::id(), __('Authentication keys'), [(new Ul())->items($items)]);
@@ -98,6 +102,17 @@ class FrontendBehaviors
             $webauthn = new WebAuthn();
 
             switch ($_POST['step'] ?? '') {
+                // from form
+                case 'deleteCredential':
+                    if (!empty($_POST[My::id() . 'delete']) && is_array($_POST[My::id() . 'delete'])) {
+                        $webauthn->store()->delCredential(base64_decode(key($_POST[My::id() . 'delete']), false));
+                        //App::frontend()->context()->frontend_session->success = __('Passkey successfully unregistred.');
+                        return;
+                    }
+
+                    break;
+
+                // from js
                 case 'prepareAuthentication':
                     $json = [
                         'message'   => 'ok',
@@ -105,6 +120,7 @@ class FrontendBehaviors
                     ];
                     break;
 
+                // from js
                 case 'processAuthentication':
                     $data = $webauthn->processGet(
                         $webauthn->store()->decodeValue($_POST['id'] ?? ''),
@@ -128,6 +144,7 @@ class FrontendBehaviors
 
                     break;
 
+                // from js
                 case 'prepareRegistration':
                     $json = [
                         'message'   => 'ok',
@@ -136,6 +153,7 @@ class FrontendBehaviors
 
                     break;
 
+                // from js
                 case 'processRegistration':
 
                     $webauthn->processCreate(
