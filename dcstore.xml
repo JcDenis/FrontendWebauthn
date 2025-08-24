@@ -3,7 +3,7 @@
   <module id="FrontendWebauthn">
     <name>Frontend Webauthn</name>
     <version>0.1</version>
-    <date>2025-08-13T22:42:37+00:00</date>
+    <date>2025-08-24T07:00:28+00:00</date>
     <author>Jean-Christian Paul Denis and contributors</author>
     <desc>Use passkey on frontend.</desc>
     <file>https://github.com/JcDenis/FrontendWebauthn/releases/download/v0.1/plugin-FrontendWebauthn.zip</file>
