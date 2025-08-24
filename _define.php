@@ -18,7 +18,7 @@ $this->registerModule(
     'Frontend webauthn',
     'Use passkey on frontend.',
     'Jean-Christian Paul Denis and Contributors',
-    '0.2',
+    '0.2.1',
     [
         'requires'    => [
             ['core', '2.36'],
