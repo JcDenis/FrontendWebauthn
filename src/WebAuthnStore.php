@@ -98,7 +98,11 @@ class WebAuthnStore extends Store
         $rs = App::credential()->getCredentials($params);
         if (!$rs->isEmpty()) {
             while ($rs->fetch()) {
-                $data[] = $this->credential->newFromArray($this->decodeData($rs->getAllData()));
+                $credential = $this->credential->newFromArray($this->decodeData($rs->getAllData()));
+                // credential relying party ID must be a subdomain of current domain
+                if (str_ends_with($this->rp->id(), $this->credential->rpId())) {
+                    $data[] = $credential;
+                }
             }
         }
 
