@@ -141,11 +141,13 @@ dotclear.ready(() => {
     $('.webauthn_authenticate a').on('click', (e) => {
       dotclear.webauthn('authenticate', aurl);
       e.preventDefault();
+      e.returnValue = '';
     });
 
     $('.webauthn_register a').on('click', (e) => {
       dotclear.webauthn('register', rurl);
       e.preventDefault();
+      e.returnValue = '';
     });
   } else {
     $('.webauthn_authenticate').hide();
