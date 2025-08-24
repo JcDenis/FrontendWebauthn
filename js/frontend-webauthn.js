@@ -9,9 +9,9 @@ dotclear.ready(() => {
 
   // webauthn passkey authentication
   dotclear.webauthn = (action, url) => {
-    // (A) HELPER FUNCTIONS
+
     const fwHelper = {
-      // (A1) ARRAY BUFFER TO BASE 64
+      // ARRAY BUFFER TO BASE 64
       atb: (b) => {
         const u = new Uint8Array(b);
         let s = '';
@@ -21,7 +21,7 @@ dotclear.ready(() => {
         return btoa(s);
       },
 
-      // (A2) BASE 64 TO ARRAY BUFFER
+      // BASE 64 TO ARRAY BUFFER
       bta: (o) => {
         const pre = '=?BINARY?B?';
         const suf = '?=';
@@ -41,13 +41,14 @@ dotclear.ready(() => {
           }
         }
       },
+
       ajax : (url, data, after) => {
         let form = new FormData();
         for (let [k,v] of Object.entries(data)) { form.append(k,v); }
         fetch(url, { method: "POST", body: form })
-        .then(res => res.text())
+        .then(res => { if (res.status != 200) { throw new Error('Failed to fetch data'); } return res.text(); })
         .then(res => after(res))
-        .catch(err => { alert("ERROR!"); console.error(err); });
+        .catch(e => { alert(e.message || "unknown error occured"); console.error(e); });
       },
 
       prepareAuthentication : () => fwHelper.ajax(url, {
@@ -76,7 +77,8 @@ dotclear.ready(() => {
         rsp = JSON.parse(rsp);
         if ((rsp.message || 'ko') === 'ok') {
           // on success, reload page to get user session from rest service
-          window.location.href = url;
+          window.location.reload();
+          //window.location.href = url;
         } else {
           window.alert(rsp.message || dotclear.fwData.err + ' (a2)');
         }
@@ -88,6 +90,8 @@ dotclear.ready(() => {
         FrontendSessioncheck : dotclear.fwData.check
       }, async (rsp) => {
         try {
+          const passkeyLabel = prompt(dotclear.fwData.label || 'Enter key name:');
+          dotclear.fwData.label = passkeyLabel;
           rsp = JSON.parse(rsp);
           fwHelper.bta(rsp.arguments);
           fwHelper.processRegistration(await navigator.credentials.create(rsp.arguments));
@@ -96,6 +100,7 @@ dotclear.ready(() => {
 
       processRegistration : cred => fwHelper.ajax(url, {
         step : "processRegistration",
+        label:  (dotclear.fwData.label || '').toString(),
         FrontendSessionaction : dotclear.fwData.action,
         FrontendSessioncheck : dotclear.fwData.check,
         client: cred.response.clientDataJSON ? fwHelper.atb(cred.response.clientDataJSON) : null,

@@ -66,8 +66,8 @@ class FrontendBehaviors
                 ->class('webauthn_unregister')
                 ->separator(', ')
                 ->items([
-                    (new Text('', Html::escapeHTML($webauthn->provider()->getProvider($credential->UUID()))))
-                        ->title(Html::escapeHTML($credential->certificateIssuer() ?: __('Unknown certificat issuer'))),
+                    (new Text('', Html::escapeHTML($credential->label() ?: __('Unlabeled key'))))
+                        ->title(Html::escapeHTML($webauthn->provider()->getProvider($credential->UUID()))),
                     (new Timestamp(Date::dt2str(__('%Y-%m-%d %H:%M'), $credential->createDate())))
                         ->datetime(Date::iso8601((int) strtotime((string) $credential->createDate()), App::auth()->getInfo('user_tz'))),
                     (new Submit([My::id() . 'delete[' . base64_encode((string) $credential->credentialId()) . ']'], __('Delete')))
@@ -158,7 +158,8 @@ class FrontendBehaviors
                     $webauthn->processCreate(
                         $webauthn->store()->decodeValue($_POST['client'] ?? ''),
                         $webauthn->store()->decodeValue($_POST['attestation'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['transports'] ?? '')
+                        $webauthn->store()->decodeValue($_POST['transports'] ?? ''),
+                        $_POST['label'] ?? ''
                     );
 
                     $json = [
