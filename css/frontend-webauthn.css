@@ -1,0 +1,3 @@
+.webauthn_authenticate, .webauthn_register {
+  display: none;
+}
