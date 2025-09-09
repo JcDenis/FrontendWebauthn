@@ -18,7 +18,7 @@ msgstr ""
 
 #: src/FrontendBehaviors.php:33
 msgid "Failed to authenticate with passkey"
-msgstr "Impossible de s'authentifier avec un clé"
+msgstr "Impossible de s'authentifier avec une clé"
 
 #: src/FrontendBehaviors.php:44
 msgid "Sign in with a passkey"

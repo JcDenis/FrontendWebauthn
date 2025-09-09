@@ -12,7 +12,7 @@
 
 use Dotclear\Helper\L10n;
 
-L10n::$locales['Failed to authenticate with passkey'] = 'Impossible de s\'authentifier avec un clé';
+L10n::$locales['Failed to authenticate with passkey'] = 'Impossible de s\'authentifier avec une clé';
 L10n::$locales['Sign in with a passkey'] = 'Se connecter avec une clé d\'accès';
 L10n::$locales['Unknown certificat issuer'] = 'Émetteur de certificat inconnu';
 L10n::$locales['%Y-%m-%d %H:%M'] = '%d/%m/%Y %H:%M';
