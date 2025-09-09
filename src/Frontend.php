@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\FrontendWebauthn;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Helper\L10n;
 
 /**
@@ -15,8 +15,10 @@ use Dotclear\Helper\L10n;
  * @author      Jean-Christian Paul Denis
  * @copyright   AGPL-3.0
  */
-class Frontend extends Process
+class Frontend
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::FRONTEND));
