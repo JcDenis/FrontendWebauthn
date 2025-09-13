@@ -34,6 +34,9 @@ class FrontendBehaviors
         ]);
     }
 
+    /**
+     * @param   ArrayObject<int, Li>    $lines
+     */
     public static function FrontendSessionWidget(ArrayObject $lines, string $url, WidgetsElement $widget): void
     {
         if (App::auth()->userID() == '') {
@@ -105,7 +108,7 @@ class FrontendBehaviors
                 // from form
                 case 'deleteCredential':
                     if (!empty($_POST[My::id() . 'delete']) && is_array($_POST[My::id() . 'delete'])) {
-                        $webauthn->store()->delCredential(base64_decode(key($_POST[My::id() . 'delete']), false));
+                        $webauthn->store()->delCredential(base64_decode((string) key($_POST[My::id() . 'delete']), false));
                         return;
                     }
 
