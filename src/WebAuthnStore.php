@@ -64,9 +64,9 @@ class WebAuthnStore extends Store
     public function getUser(): UserOptionInterface
     {
         $this->user->configure([
-            'id'          => (string) App::auth()->userID(),
-            'name'        => (string) App::auth()->userID(),
-            'displayname' => (string) App::auth()->getInfo('user_cn'),
+            'id'          => App::auth()->userID(),
+            'name'        => App::auth()->userID(),
+            'displayname' => is_string(App::auth()->getInfo('user_cn')) ? App::auth()->getInfo('user_cn') : App::auth()->userID(),
         ]);
 
         return $this->user;
@@ -150,6 +150,6 @@ class WebAuthnStore extends Store
 
         $data = json_decode((string) file_get_contents($path), true);
 
-        return is_array($data) ? $data : [];
+        return is_array($data) ? array_filter($data, fn ($k, $v): bool => is_string($k) && is_string($v), ARRAY_FILTER_USE_BOTH) : [];
     }
 }

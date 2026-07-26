@@ -1,3 +1,8 @@
+FrontendWebauthn 0.x - xxxx.xx.xx
+==========================================================
+* Bump Dotclear from 2.36 to 2.39
+* Code review (phpstan max)
+
 FrontendWebauthn 0.3 - 2025.09.09
 ==========================================================
 * Use TraitProcess

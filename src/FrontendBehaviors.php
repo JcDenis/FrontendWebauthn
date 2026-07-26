@@ -9,7 +9,7 @@ use Dotclear\App;
 use Dotclear\Helper\Date;
 use Dotclear\Helper\Html\Form\{ Div, Hidden, Li, Link, Submit, Text, Timestamp, Ul };
 use Dotclear\Helper\Html\Html;
-use Dotclear\Plugin\FrontendSession\{ FrontendSessionProfil, FrontendUrl };
+use Dotclear\Plugin\FrontendSession\{ FrontendSession, FrontendSessionProfil, FrontendUrl };
 use Dotclear\Plugin\widgets\WidgetsElement;
 use Exception;
 
@@ -60,6 +60,7 @@ class FrontendBehaviors
         $url         = App::blog()->url() . App::url()->getURLFor('FrontendSession');
         $items       = [];
         $credentials = $webauthn->store()->getCredentials('', (string) App::auth()->userID());
+        $tz          = is_string(App::auth()->getInfo('user_tz')) ? App::auth()->getInfo('user_tz') : '';
 
         foreach ($credentials as $credential) {
             if ($webauthn->rpOption()->id() != $credential->rpId()) {
@@ -72,7 +73,7 @@ class FrontendBehaviors
                     (new Text('', Html::escapeHTML($credential->label() ?: __('Unlabeled key'))))
                         ->title(Html::escapeHTML($webauthn->provider()->getProvider($credential->UUID()))),
                     (new Timestamp(Date::dt2str(__('%Y-%m-%d %H:%M'), $credential->createDate())))
-                        ->datetime(Date::iso8601((int) strtotime((string) $credential->createDate()), App::auth()->getInfo('user_tz'))),
+                        ->datetime(Date::iso8601((int) strtotime((string) $credential->createDate()), $tz)),
                     (new Submit([My::id() . 'delete[' . base64_encode((string) $credential->credentialId()) . ']'], __('Delete')))
                             ->class('delete'),
                 ]);
@@ -108,8 +109,11 @@ class FrontendBehaviors
                 // from form
                 case 'deleteCredential':
                     if (!empty($_POST[My::id() . 'delete']) && is_array($_POST[My::id() . 'delete'])) {
-                        $webauthn->store()->delCredential(base64_decode((string) key($_POST[My::id() . 'delete']), false));
-                        return;
+                        $k = key($_POST[My::id() . 'delete']);
+                        if (is_string($k)) {
+                            $webauthn->store()->delCredential(base64_decode($k, false));
+                            return;
+                        }
                     }
 
                     break;
@@ -125,14 +129,15 @@ class FrontendBehaviors
                 // from js
                 case 'processAuthentication':
                     $data = $webauthn->processGet(
-                        $webauthn->store()->decodeValue($_POST['id'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['client'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['authenticator'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['signature'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['user'] ?? '')
+                        $webauthn->store()->decodeValue(isset($_POST['id']) && is_string($_POST['id']) ? $_POST['id'] : ''),
+                        $webauthn->store()->decodeValue(isset($_POST['client']) && is_string($_POST['client']) ? $_POST['client'] : ''),
+                        $webauthn->store()->decodeValue(isset($_POST['authenticator']) && is_string($_POST['authenticator']) ? $_POST['authenticator'] : ''),
+                        $webauthn->store()->decodeValue(isset($_POST['signature']) && is_string($_POST['signature']) ? $_POST['signature'] : ''),
+                        $webauthn->store()->decodeValue(isset($_POST['user']) && is_string($_POST['user']) ? $_POST['user'] : '')
                     );
 
-                    if ($data !== '' &&  App::frontend()->context()->frontend_session->check($data)) {
+                    $fs = App::frontend()->context()->__get('frontend_session');
+                    if ($data !== '' && $fs instanceof FrontendSession && $fs->check($data)) {
                         $json = [
                             'message' => 'ok',
                             'arguments' => ['user' => $data],
@@ -159,10 +164,10 @@ class FrontendBehaviors
                 case 'processRegistration':
 
                     $webauthn->processCreate(
-                        $webauthn->store()->decodeValue($_POST['client'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['attestation'] ?? ''),
-                        $webauthn->store()->decodeValue($_POST['transports'] ?? ''),
-                        $_POST['label'] ?? ''
+                        $webauthn->store()->decodeValue(isset($_POST['client']) && is_string($_POST['client']) ? $_POST['client'] : ''),
+                        $webauthn->store()->decodeValue(isset($_POST['attestation']) && is_string($_POST['attestation']) ? $_POST['attestation'] : ''),
+                        $webauthn->store()->decodeValue(isset($_POST['transports']) && is_string($_POST['transports']) ? $_POST['transports'] : ''),
+                        isset($_POST['label']) && is_string($_POST['label']) ? $_POST['label'] : ''
                     );
 
                     $json = [
