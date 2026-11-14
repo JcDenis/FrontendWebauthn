@@ -8,7 +8,7 @@
     <desc>Use passkey on frontend.</desc>
     <file>https://github.com/JcDenis/FrontendWebauthn/releases/download/v0.4/plugin-FrontendWebauthn.zip</file>
     <da:dcmin>2.39</da:dcmin>
-    <da:details>https://github.com/JcDenis/FrontendWebauthn/src/branch/master/README.md</da:details>
+    <da:details>https://github.com/JcDenis/FrontendWebauthn/blob/master/README.md</da:details>
     <da:support>https://github.com/JcDenis/FrontendWebauthn/issues</da:support>
   </module>
 </modules>
