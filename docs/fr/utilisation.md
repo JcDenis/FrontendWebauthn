@@ -14,7 +14,7 @@ FrontendWebauthn permet à vos visiteurs de se connecter au blog avec une clé d
 ## Prérequis
 
 * Le plugin FrontendSession doit être activé dans les réglages du blog (voir son guide).
-* Le blog doit être servi avec un nom de domaine (ou `localhost`) et, en production, en HTTPS. Les clés d'accès ne fonctionnent pas avec une adresse IP.
+* Le blog doit être servi avec un nom de domaine (ou `localhost`) et, en production, en HTTPS. Les clés d'accès ne fonctionnent pas avec une adresse IP : le plugin cache alors ses liens et la page « Mon compte » l'explique.
 * Le navigateur du visiteur doit gérer les clés d'accès. Sinon, les liens du plugin restent cachés.
 
 Le plugin n'a aucun réglage et pas de page d'administration.
@@ -25,7 +25,7 @@ Dans **Gadgets**, ajoutez le gadget « Session publique » de FrontendSession. Q
 
 ![Gadget public](img/widget-public.png)
 
-Le lien n'apparaît que dans ce gadget : la page « Mon compte » ne le propose pas.
+La page de connexion de FrontendSession propose aussi ce lien (avec FrontendSession 0.45 ou plus récent).
 
 ## Enregistrer une clé
 
@@ -39,7 +39,7 @@ Il clique sur **Enregistrer une nouvelle clé**, saisit un nom pour la clé dans
 
 ## Se connecter avec une clé
 
-Un visiteur déconnecté clique sur **Se connecter avec une clé d'accès** dans le gadget, puis valide avec son appareil. Il n'a pas à saisir d'identifiant : la clé suffit. La page se recharge et il est connecté.
+Un visiteur déconnecté clique sur **Se connecter avec une clé d'accès** dans le gadget ou sur la page de connexion, puis valide avec son appareil. Il n'a pas à saisir d'identifiant : la clé suffit. La page se recharge et il est connecté.
 
 ![Connecté par clé](img/connecte-par-cle.png)
 
@@ -51,6 +51,4 @@ Dans la rubrique « Clés d'authentification », cliquez sur **Supprimer** en fa
 
 ## Bon à savoir
 
-* Après un clic sur « Supprimer », la page affiche une erreur « 571 : Something went wrong while loading template file for your blog. WebAuthn can not be started twice. » alors que la clé est bien supprimée. Rechargez la page « Mon compte » pour retrouver la liste à jour.
-* Un même appareil ne peut généralement pas enregistrer deux clés pour le même compte : l'enregistrement échoue avec un message d'erreur.
-* Certains textes restent en anglais : la fenêtre « Enter key name: » et l'infobulle « Unknown passkey. » au survol du nom d'une clé.
+* Un même appareil ne peut généralement pas enregistrer deux clés pour le même compte : le message « Cet appareil a déjà une clé pour ce compte. » s'affiche.
