@@ -1,3 +1,7 @@
+FrontendWebauthn 0.6 - 2026.11.15
+===========================================================
+* [compat] Require Dotclear 2.40 and FrontendSession 0.45 (sign in page behavior)
+
 FrontendWebauthn 0.5 - 2026.11.15
 ===========================================================
 * [fix] Redirect after key deletion, passkey sign in on sign in page, message on IP address blog and for a second key of a device, translations
