@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/jcdenis/FrontendWebauthn?color=lightblue)](https://github.com/JcDenis/FrontendWebauthn/releases)
 ![Date](https://img.shields.io/github/release-date/jcdenis/FrontendWebauthn?color=red)
-[![Dotclear](https://img.shields.io/badge/dotclear-v2.36-137bbb.svg)](https://fr.dotclear.org/download)
+[![Dotclear](https://img.shields.io/badge/dotclear-v2.40-137bbb.svg)](https://fr.dotclear.org/download)
 [![Repository](https://img.shields.io/badge/repository-official-9ac123.svg)](https://dotclear.org/plugin/detail/FrontendWebauthn)
 [![License](https://img.shields.io/github/license/jcdenis/FrontendWebauthn?color=white)](https://github.com/JcDenis/FrontendWebauthn/blob/master/LICENSE)
 
@@ -16,9 +16,9 @@ A [user guide in French](https://github.com/JcDenis/FrontendWebauthn/blob/master
 
 ## REQUIREMENTS
 
-* Dotclear 2.39
-* PHP 8.1+
-* Plugin FrontendSession
+* Dotclear 2.40
+* PHP 8.2+
+* Plugin FrontendSession 0.45+
 
 ## USAGE
 

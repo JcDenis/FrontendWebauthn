@@ -25,8 +25,8 @@ $this->registerModule(
     '0.5',
     [
         'requires'    => [
-            ['core', '2.39'],
-            ['FrontendSession', '0.34']
+            ['core', '2.40'],
+            ['FrontendSession', '0.45'],
         ],
         'permissions' => 'My',
         'type'        => 'plugin',
