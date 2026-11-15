@@ -12,6 +12,8 @@ _FrontendWebauthn_ is a plugin for the open-source web publishing software calle
 
 > Use passkey on fronend.
 
+A [user guide in French](https://github.com/JcDenis/FrontendWebauthn/blob/master/docs/fr/utilisation.md) is available.
+
 ## REQUIREMENTS
 
 * Dotclear 2.39
@@ -27,6 +29,7 @@ Dotclear plugins repository. (See Dotclear's documentation to know how do this)
 
 ## LINKS
 
+* [User guide (in French)](https://github.com/JcDenis/FrontendWebauthn/blob/master/docs/fr/utilisation.md)
 * [License](https://github.com/JcDenis/FrontendWebauthn/blob/master/LICENSE)
 * [Packages & details](https://github.com/JcDenis/FrontendWebauthn/releases) (or on [Repository](https://dotclear.org/plugin/detail/FrontendWebauthn))
 * [Sources & contributions](https://github.com/JcDenis/FrontendWebauthn)
