@@ -9,6 +9,7 @@ use Dotclear\App;
 use Dotclear\Helper\Date;
 use Dotclear\Helper\Html\Form\{ Div, Hidden, Li, Link, Submit, Text, Timestamp, Ul };
 use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\Http;
 use Dotclear\Plugin\FrontendSession\{ FrontendSession, FrontendSessionProfil, FrontendUrl };
 use Dotclear\Plugin\widgets\WidgetsElement;
 use Exception;
@@ -30,7 +31,9 @@ class FrontendBehaviors
         Html::jsJson(My::id(), [
             'check'  => App::nonce()->getNonce(),
             'action' => My::id(),
-            'err'    => __('Failed to authenticate with passkey')
+            'err'    => __('Failed to authenticate with passkey'),
+            'label'  => __('Enter key name:'),
+            'exists' => __('This device already has a key for this account.'),
         ]);
     }
 
@@ -39,7 +42,7 @@ class FrontendBehaviors
      */
     public static function FrontendSessionWidget(ArrayObject $lines, string $url, WidgetsElement $widget): void
     {
-        if (App::auth()->userID() == '') {
+        if (App::auth()->userID() == '' && self::isAvailable()) {
             $lines[] = (new Li())
                 ->class('webauthn_authenticate')
                 ->items([
@@ -50,10 +53,50 @@ class FrontendBehaviors
         }
     }
 
+    /**
+     * Add passkey sign in to the sign in page.
+     */
+    public static function FrontendSessionSignin(FrontendSessionProfil $profil): void
+    {
+        if (App::auth()->userID() != '' || !self::isAvailable()) {
+            return;
+        }
+
+        $profil->addAction(My::id() . 'signin', __('Sign in with a passkey'), [
+            (new Ul())->items([
+                (new Li())
+                    ->class('webauthn_authenticate')
+                    ->items([
+                        (new Link([My::id() . '_submit', My::id() . 'submit_signin']))
+                            ->text(__('Sign in with a passkey'))
+                            ->href(App::blog()->url() . App::url()->getURLFor('FrontendSession')),
+                    ]),
+            ]),
+        ]);
+    }
+
+    /**
+     * Check if passkeys can be used, WebAuthn needs a domain name, not an IP address.
+     */
+    public static function isAvailable(): bool
+    {
+        $host = parse_url(App::blog()->url(), PHP_URL_HOST);
+
+        return is_string($host) && filter_var(trim($host, '[]'), FILTER_VALIDATE_IP) === false;
+    }
+
     public static function FrontendSessionProfil(FrontendSessionProfil $profil): void
     {
         if (App::auth()->userID() == '') {
             return; // double check
+        }
+
+        if (!self::isAvailable()) {
+            $profil->addAction(My::id(), __('Authentication keys'), [
+                (new Text('p', __('Passkeys can not be used on a blog served from an IP address, it needs a domain name.'))),
+            ]);
+
+            return;
         }
 
         $webauthn    = new WebAuthn();
@@ -112,7 +155,8 @@ class FrontendBehaviors
                         $k = key($_POST[My::id() . 'delete']);
                         if (is_string($k)) {
                             $webauthn->store()->delCredential(base64_decode($k, false));
-                            return;
+                            // Back to the profile page, form must not be processed again
+                            Http::redirect(App::blog()->url() . App::url()->getURLFor('FrontendSession'));
                         }
                     }
 

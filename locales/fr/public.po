@@ -52,3 +52,14 @@ msgstr "Clés d'authentification"
 msgid "This key is not registered"
 msgstr "Cette clé n'est pas enregistrée"
 
+msgid "Enter key name:"
+msgstr "Nom de la clé :"
+
+msgid "This device already has a key for this account."
+msgstr "Cet appareil a déjà une clé pour ce compte."
+
+msgid "Unknown passkey."
+msgstr "Clé d'accès inconnue."
+
+msgid "Passkeys can not be used on a blog served from an IP address, it needs a domain name."
+msgstr "Les clés d'accès ne fonctionnent pas sur un blog servi par une adresse IP, il faut un nom de domaine."

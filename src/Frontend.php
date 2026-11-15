@@ -36,6 +36,7 @@ class Frontend
             'publicHeadContent' => FrontendBehaviors::publicHeadContent(...),
             'FrontendSessionWidget' => FrontendBehaviors::FrontendSessionWidget(...),
             'FrontendSessionProfil' => FrontendBehaviors::FrontendSessionProfil(...),
+            'FrontendSessionSignin' => FrontendBehaviors::FrontendSessionSignin(...),
             'FrontendSessionAction' => FrontendBehaviors::FrontendSessionAction(...),
         ]);
 

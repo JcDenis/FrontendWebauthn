@@ -95,7 +95,11 @@ dotclear.ready(() => {
           rsp = JSON.parse(rsp);
           fwHelper.bta(rsp.arguments);
           fwHelper.processRegistration(await navigator.credentials.create(rsp.arguments));
-        } catch (e) { alert(dotclear.fwData.err + ' (r1)'); console.error(e); }
+        } catch (e) {
+          // Browser refuses a second key of the same device for the same account
+          alert(e?.name === 'InvalidStateError' ? dotclear.fwData.exists : dotclear.fwData.err + ' (r1)');
+          console.error(e);
+        }
       }),
 
       processRegistration : cred => fwHelper.ajax(url, {
