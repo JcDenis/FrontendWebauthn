@@ -1,3 +1,8 @@
+FrontendWebauthn 0.5 - 2026.11.15
+===========================================================
+* [fix] Redirect after key deletion, passkey sign in on sign in page, message on IP address blog and for a second key of a device, translations
+* [docs] Add a user guide in French, with screenshots
+
 FrontendWebauthn 0.4 - 2026.08.12
 ==========================================================
 * Bump Dotclear from 2.36 to 2.39
