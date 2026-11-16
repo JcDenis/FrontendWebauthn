@@ -21,11 +21,11 @@ Le plugin n'a aucun réglage et pas de page d'administration.
 
 ## Afficher le lien de connexion
 
-Dans **Gadgets**, ajoutez le gadget « Session publique » de FrontendSession. Quand un visiteur n'est pas connecté, le gadget affiche, sous le formulaire, le lien **Se connecter avec une clé d'accès**.
+Dans **Widgets**, ajoutez le widget « Session publique » de FrontendSession. Quand un visiteur n'est pas connecté, le widget affiche, sous le formulaire, le lien **Se connecter avec une clé d'accès**.
 
-![Gadget public](img/widget-public.png)
+![Widget public](img/widget-public.png)
 
-Le lien n'apparaît que dans ce gadget : la page « Mon compte » ne le propose pas.
+Le lien n'apparaît que dans ce widget : la page « Mon compte » ne le propose pas.
 
 ## Enregistrer une clé
 
@@ -39,7 +39,7 @@ Il clique sur **Enregistrer une nouvelle clé**, saisit un nom pour la clé dans
 
 ## Se connecter avec une clé
 
-Un visiteur déconnecté clique sur **Se connecter avec une clé d'accès** dans le gadget, puis valide avec son appareil. Il n'a pas à saisir d'identifiant : la clé suffit. La page se recharge et il est connecté.
+Un visiteur déconnecté clique sur **Se connecter avec une clé d'accès** dans le widget, puis valide avec son appareil. Il n'a pas à saisir d'identifiant : la clé suffit. La page se recharge et il est connecté.
 
 ![Connecté par clé](img/connecte-par-cle.png)
 
